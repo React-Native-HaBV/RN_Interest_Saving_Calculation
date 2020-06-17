@@ -1,17 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, StyleSheet, TextInput} from 'react-native';
 import NumberFormat from "react-number-format";
 
 const NormalInterest = () => {
 	const [money, setMoney] = useState(''); // Số tiền gửi
-	const [interest, setInterest] = useState(''); // Lãi suất
+	const [interestRate, setInterestRate] = useState(''); // Lãi suất
 	const [term, setTerm] = useState(''); // Ky han
-	const [result, setResult] = useState('');
+	const [profit, setProfit] = useState('');
+
+	function string_to_number(text){
+		if(!text){return 0;}
+		text = text.split(',').join('');
+		text = text.split('.').join('.');
+		return Number(text.replace(/[^0-9.]/g, ""));
+	}
 
 	useEffect(() => {
-		let value = (parseFloat(money) * (parseFloat(term) / 12) * (parseFloat(interest) / 100));
-		setResult(value);
-	},[money, term, interest]);
+		let Tien_Gui = string_to_number(money);
+		let value = parseFloat((Tien_Gui)) * (parseFloat(interestRate)/100) * (parseFloat(term)/12);
+		setProfit(value);
+	}, [money, term, interestRate]);
 
 	return (
 		<View style={styles.container}>
@@ -32,11 +40,12 @@ const NormalInterest = () => {
 					{/*	value={money}*/}
 					{/*	onChangeText={setMoney}*/}
 					{/*/>*/}
+
 					<NumberFormat
 						value={money}
 						displayType={'text'}
 						thousandSeparator={true}
-						renderText={value => (
+						renderText={ value => (
 							<TextInput
 								style={styles.inputStyle}
 								placeholder={'Nhập số tiền'}
@@ -70,8 +79,8 @@ const NormalInterest = () => {
 						autoCapitalize="none"
 						autoCorrect={false}
 						keyboardType={'numeric'}
-						value={interest}
-						onChangeText={setInterest}
+						value={interestRate}
+						onChangeText={setInterestRate}
 					/>
 				</View>
 				<View style={styles.rightTextView}>
@@ -106,16 +115,18 @@ const NormalInterest = () => {
 					<Text style={styles.labelStyle}> Tiền lãi </Text>
 				</View>
 				<View style={styles.inputView}>
-					{result
-						? <NumberFormat
-							value={result}
-							displayType={'text'}
-							thousandSeparator={true}
-							decimalScale={2}
-							renderText={value => (
-								<Text style={styles.inputStyle}> {value} </Text>
-							)}
-						/>
+					{profit
+						? <View>
+							<NumberFormat
+								value={profit}
+								displayType={'text'}
+								thousandSeparator={true}
+								decimalScale={2}
+								renderText={value => (
+									<Text style={styles.inputStyle}> {value} </Text>
+								)}
+							/>
+						</View>
 						: <Text style={{fontSize: 15, marginLeft: 40, color: 'gray'}}> Tiền lãi </Text>
 					}
 				</View>
@@ -158,7 +169,7 @@ const styles = StyleSheet.create({
 		marginLeft: 40
 	},
 	inputView: {
-		width: '60%',
+		width: '65%',
 		justifyContent: 'center',
 	},
 	rightTextStyle: {
@@ -167,7 +178,7 @@ const styles = StyleSheet.create({
 		// marginRight: 20
 	},
 	rightTextView: {
-		width: '20%',
+		width: '15%',
 		justifyContent: 'center',
 		// backgroundColor: 'red'
 	}

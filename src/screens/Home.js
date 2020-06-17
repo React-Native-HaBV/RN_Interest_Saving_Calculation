@@ -3,46 +3,81 @@ import {View, Text, StyleSheet, Keyboard, TouchableWithoutFeedback} from 'react-
 import {Card, CardSection, Header, MyInput, MyButton, Separator, Spacer} from "../components/general";
 import NormalInterest from "../components/NormalInterest";
 import CompoundInterest from "../components/CompoundInterest";
+import {ButtonGroup} from "react-native-elements";
 
 const Home = () => {
 	const [selectedIndex, setSelectedIndex] = useState(0);
+	const Button1 = () => {
+		return (
+			<View style={{flex: 1, justifyContent: 'center'}}>
+				<Text style={styles.textButtonStyle}> Lãi thường </Text>
+			</View>
+		);
+	};
+	const Button2 = () => {
+		return (
+			<View style={{flex: 1, justifyContent: 'center'}}>
+				<Text style={styles.textButtonStyle}> Lãi kép </Text>
+			</View>
+		);
+	};
+
+	const buttons = [{element: Button1}, {element: Button2}];
+
+	const displayView = () => {
+		switch (selectedIndex) {
+			case 0:
+				return <NormalInterest/>
+			case 1:
+				return <CompoundInterest/>
+		}
+	};
 
 	return (
 		<View style={styles.container}>
 			<TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
 				<View style={styles.container}>
 					<View style={styles.containerHeader}>
-						{/*<Button> Cai Dat </Button>*/}
 						<Header name={'Tính lãi tiết kiệm'}/>
 					</View>
 					<View style={styles.containerButton}>
-						<MyButton
-							onpress={setSelectedIndex}
-							label={'Lãi thường'}
-							labelStyle={{
-								fontSize: 15
-							}}
-							containerStyle={{
-								height: 20,
-								justifyContent: 'center',
-								marginHorizontal: 10
-							}}
-						/>
-						<MyButton
-							label={'Lãi kép'}
-							labelStyle={{
-								fontSize: 15
-							}}
-							containerStyle={{
-								height: 20,
-								justifyContent: 'center',
-								marginHorizontal: 10
-							}}
+						{/*<MyButton*/}
+						{/*	onpress={setSelectedIndex}*/}
+						{/*	label={'Lãi thường'}*/}
+						{/*	labelStyle={{*/}
+						{/*		fontSize: 15*/}
+						{/*	}}*/}
+						{/*	containerStyle={{*/}
+						{/*		height: 20,*/}
+						{/*		justifyContent: 'center',*/}
+						{/*		marginHorizontal: 10*/}
+						{/*	}}*/}
+						{/*/>*/}
+						{/*<MyButton*/}
+						{/*	label={'Lãi kép'}*/}
+						{/*	labelStyle={{*/}
+						{/*		fontSize: 15*/}
+						{/*	}}*/}
+						{/*	containerStyle={{*/}
+						{/*		height: 20,*/}
+						{/*		justifyContent: 'center',*/}
+						{/*		marginHorizontal: 10*/}
+						{/*	}}*/}
+						{/*/>*/}
+						<ButtonGroup
+							buttons={buttons}
+							onPress={setSelectedIndex}
+							selectedIndex={selectedIndex}
+							containerStyle={styles.buttonView}
+							// selectedButtonStyle={{backgroundColor: 'transparent'}}
+							innerBorderStyle={{width: 0, color: 'transparent'}}
+							selectedTextStyle={{color:'#FFFFFF'}}
+							textStyle={{color: '#F27224'}}
 						/>
 					</View>
 
 					<View style={styles.containerContent}>
-						<NormalInterest/>
+						{displayView()}
 					</View>
 				</View>
 			</TouchableWithoutFeedback>
@@ -72,17 +107,22 @@ const styles = StyleSheet.create({
 	containerButton: {
 		flex: 1,
 		justifyContent: 'space-around',
-		alignContent: 'center',
-		borderBottomColor: 'gray',
+		// alignContent: 'center',
+		marginVertical: 10,
+		borderBottomColor: 'blue',
 		borderBottomWidth: 1,
-		borderTopColor: 'gray',
+		borderTopColor: 'blue',
 		borderTopWidth: 1,
-		marginTop: 10
+		marginHorizontal: 10
 	},
-	buttonStyle: {
-		height: 20,
-		marginTop: 10,
-		backgroundColor: 'gray'
+	buttonView: {
+		flexDirection: 'column',
+		// alignContent: 'center',
+		alignItems: 'flex-start',
+		height: 70,
+	},
+	textButtonStyle: {
+		width: '100%'
 	}
 });
 export default Home;
