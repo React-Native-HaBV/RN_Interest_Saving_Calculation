@@ -1,3 +1,11 @@
+/************************************************************************
+ * File : NormalInterest.js
+ * Date: 16 - Jun - 2020
+ * Project: Saving Calculation
+ * Author: HaBV
+ * Description: Cách tính lãi thường khi gửi một số tiền vào ngân hàng.
+ * Gửi một số tiền vào ngân hàng và lấy lãi theo từng tháng
+ ************************************************************************/
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import NumberFormat from "react-number-format";
@@ -28,19 +36,6 @@ const NormalInterest = () => {
 					<Text style={styles.labelStyle}> Số tiền </Text>
 				</View>
 				<View style={styles.inputView}>
-					{/*<TextInput*/}
-					{/*	style={styles.inputStyle}*/}
-					{/*	placeholder={'Nhập số tiền'}*/}
-					{/*	returnKeyType={'done'}*/}
-					{/*	autoFocus={true}*/}
-					{/*	autoCapitalize="none"*/}
-					{/*	autoCorrect={false}*/}
-					{/*	keyboardType={'numeric'}*/}
-					{/*	dataDetectorTypes='phoneNumber'*/}
-					{/*	value={money}*/}
-					{/*	onChangeText={setMoney}*/}
-					{/*/>*/}
-
 					<NumberFormat
 						value={money}
 						displayType={'text'}
@@ -109,8 +104,7 @@ const NormalInterest = () => {
 					<Text style={styles.rightTextStyle}> Tháng </Text>
 				</View>
 			</View>
-
-			<View style={styles.containerItem}>
+			<View style={[styles.containerItem, {borderBottomWidth: 0, borderBottomColor: 'transparent'}]}>
 				<View style={styles.labelView}>
 					<Text style={styles.labelStyle}> Tiền lãi </Text>
 				</View>
@@ -127,20 +121,19 @@ const NormalInterest = () => {
 								)}
 							/>
 						</View>
-						: <Text style={{fontSize: 15, marginLeft: 40, color: 'gray'}}> Tiền lãi </Text>
+						: <Text style={{fontSize: 15, marginLeft: 20, color: '#CCCCCE'}}> Tiền lãi </Text>
 					}
 				</View>
 				<View style={styles.rightTextView}>
 					<Text style={styles.rightTextStyle}> VND </Text>
 				</View>
 			</View>
-
 		</View>
 	);
 };
 const styles = StyleSheet.create({
 	container: {
-		marginVertical: 10,
+		// marginVertical: 10,
 		borderTopColor: 'gray',
 		borderTopWidth: 1,
 		borderBottomColor: 'gray',
@@ -156,7 +149,7 @@ const styles = StyleSheet.create({
 		// backgroundColor: 'gray'
 	},
 	labelView: {
-		width: '20%',
+		width: '25%',
 		justifyContent: 'center',
 		// backgroundColor: 'red'
 	},
@@ -166,10 +159,10 @@ const styles = StyleSheet.create({
 	},
 	inputStyle: {
 		fontSize: 15,
-		marginLeft: 40
+		marginLeft: 20
 	},
 	inputView: {
-		width: '65%',
+		width: '60%',
 		justifyContent: 'center',
 	},
 	rightTextStyle: {

@@ -1,20 +1,18 @@
 /************************************************************************
- * File : CompoundInterest.js
+ * File : InstallmentLoan.js
  * Date: 16 - Jun - 2020
  * Project: Saving Calculation
  * Author: HaBV
- * Description: Cách tính lãi kép khi gửi một số tiền vào ngân hàng.
- * ( tiền lãi hàng tháng + vào tiền gốc và tĩnh lãi tháng tiếp theo trên tổng số tiền)
+ * Description: Cách tính số tiền cần trả một tháng cho ngân hàng khi vay trả góp một số tiền từ ngân hàng
  ************************************************************************/
 
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import NumberFormat from "react-number-format";
 
-const CompoundInterest = () => {
+const InstallmentLoan = () => {
 	const [money, setMoney] = useState(''); // Số tiền gửi
 	const [interestRate, setInterestRate] = useState(''); // Lãi suất
-	const [term, setTerm] = useState(''); // Ky han
 	const [profit, setProfit] = useState('');
 	const [time, setTime] = useState();
 
@@ -26,17 +24,18 @@ const CompoundInterest = () => {
 	}
 
 	useEffect(() => {
-		let Tien_Gui = string_to_number(money);
-		let SUM_Money = parseFloat(Tien_Gui) * ((1 + parseFloat(interestRate)/100) ** (parseFloat(time)/parseFloat(term)));
-		let value = SUM_Money - Tien_Gui;
+		let Tien_Vay = string_to_number(money);
+		let result_Top = ((parseFloat(Tien_Vay) * ((1 + (parseFloat(interestRate)/100)/12) ** (parseFloat(time)))) * ((parseFloat(interestRate)/100)/12));
+		let result_Bottom = ((1 + (parseFloat(interestRate)/100)/12) ** (parseFloat(time))) - 1;
+		let value = (parseFloat(result_Top) / parseFloat(result_Bottom));
 		setProfit(value);
-	}, [money, term, interestRate, time]);
+	}, [money, interestRate, time]);
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.containerItem}>
 				<View style={styles.labelView}>
-					<Text style={styles.labelStyle}> Số tiền </Text>
+					<Text style={styles.labelStyle}> Số tiền vay </Text>
 				</View>
 				<View style={styles.inputView}>
 					<NumberFormat
@@ -46,7 +45,7 @@ const CompoundInterest = () => {
 						renderText={ value => (
 							<TextInput
 								style={styles.inputStyle}
-								placeholder={'Nhập số tiền'}
+								placeholder={'Nhập số tiền muốn vay'}
 								returnKeyType={'done'}
 								autoFocus={true}
 								autoCapitalize="none"
@@ -87,37 +86,37 @@ const CompoundInterest = () => {
 				</View>
 			</View>
 
-			<View style={styles.containerItem}>
-				<View style={styles.labelView}>
-					<Text style={styles.labelStyle}> Kỳ hạn </Text>
-				</View>
-				<View style={styles.inputView}>
-					<TextInput
-						style={styles.inputStyle}
-						placeholder={'Nhập kỳ hạn'}
-						returnKeyType={'done'}
-						autoFocus={true}
-						autoCapitalize="none"
-						autoCorrect={false}
-						keyboardType={'numeric'}
-						dataDetectorTypes='phoneNumber'
-						value={term}
-						onChangeText={setTerm}
-					/>
-				</View>
-				<View style={styles.rightTextView}>
-					<Text style={styles.rightTextStyle}> Tháng </Text>
-				</View>
-			</View>
+			{/*<View style={styles.containerItem}>*/}
+			{/*	<View style={styles.labelView}>*/}
+			{/*		<Text style={styles.labelStyle}> Kỳ hạn </Text>*/}
+			{/*	</View>*/}
+			{/*	<View style={styles.inputView}>*/}
+			{/*		<TextInput*/}
+			{/*			style={styles.inputStyle}*/}
+			{/*			placeholder={'Nhập kỳ hạn'}*/}
+			{/*			returnKeyType={'done'}*/}
+			{/*			autoFocus={true}*/}
+			{/*			autoCapitalize="none"*/}
+			{/*			autoCorrect={false}*/}
+			{/*			keyboardType={'numeric'}*/}
+			{/*			dataDetectorTypes='phoneNumber'*/}
+			{/*			value={term}*/}
+			{/*			onChangeText={setTerm}*/}
+			{/*		/>*/}
+			{/*	</View>*/}
+			{/*	<View style={styles.rightTextView}>*/}
+			{/*		<Text style={styles.rightTextStyle}> Tháng </Text>*/}
+			{/*	</View>*/}
+			{/*</View>*/}
 
 			<View style={styles.containerItem}>
 				<View style={styles.labelView}>
-					<Text style={styles.labelStyle}> Thời gian gửi </Text>
+					<Text style={styles.labelStyle}> Thời gian vay </Text>
 				</View>
 				<View style={styles.inputView}>
 					<TextInput
 						style={styles.inputStyle}
-						placeholder={'Nhập thời gian gửi'}
+						placeholder={'Nhập thời gian vay'}
 						returnKeyType={'done'}
 						autoFocus={true}
 						autoCapitalize="none"
@@ -135,7 +134,7 @@ const CompoundInterest = () => {
 
 			<View style={[styles.containerItem, {borderBottomWidth: 0, borderBottomColor: 'transparent'}]}>
 				<View style={styles.labelView}>
-					<Text style={styles.labelStyle}> Tiền lãi </Text>
+					<Text style={styles.labelStyle}> Trả nợ </Text>
 				</View>
 				<View style={styles.inputView}>
 					{profit
@@ -150,11 +149,11 @@ const CompoundInterest = () => {
 								)}
 							/>
 						</View>
-						: <Text style={{fontSize: 15, marginLeft: 20, color: '#CCCCCE'}}> Tiền lãi </Text>
+						: <Text style={{fontSize: 15, marginLeft: 20, color: '#CCCCCE'}}> Số tiền phải trả </Text>
 					}
 				</View>
 				<View style={styles.rightTextView}>
-					<Text style={styles.rightTextStyle}> VND </Text>
+					<Text style={styles.rightTextStyle}> / Tháng </Text>
 				</View>
 			</View>
 
@@ -163,7 +162,7 @@ const CompoundInterest = () => {
 };
 const styles = StyleSheet.create({
 	container: {
-		// marginVertical: 10,
+		marginVertical: 10,
 		borderTopColor: 'gray',
 		borderTopWidth: 1,
 		borderBottomColor: 'gray',
@@ -179,7 +178,7 @@ const styles = StyleSheet.create({
 		// backgroundColor: 'gray'
 	},
 	labelView: {
-		width: '25%',
+		width: '30%',
 		justifyContent: 'center',
 		// backgroundColor: 'red'
 	},
@@ -192,7 +191,7 @@ const styles = StyleSheet.create({
 		marginLeft: 20
 	},
 	inputView: {
-		width: '60%',
+		width: '50%',
 		justifyContent: 'center',
 	},
 	rightTextStyle: {
@@ -201,10 +200,10 @@ const styles = StyleSheet.create({
 		// marginRight: 20
 	},
 	rightTextView: {
-		width: '15%',
+		width: '20%',
 		justifyContent: 'center',
-		// backgroundColor: 'red'
+		backgroundColor: 'red'
 	}
 });
 
-export default CompoundInterest;
+export default InstallmentLoan;

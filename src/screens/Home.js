@@ -1,28 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Keyboard, TouchableWithoutFeedback} from 'react-native';
-import {Card, CardSection, Header, MyInput, MyButton, Separator, Spacer} from "../components/general";
+import {View, StyleSheet, Keyboard, TouchableWithoutFeedback} from 'react-native';
+import { Header } from "../components/general";
 import NormalInterest from "../components/NormalInterest";
 import CompoundInterest from "../components/CompoundInterest";
 import {ButtonGroup} from "react-native-elements";
+import InstallmentLoan from "../components/InstallmentLoan";
 
 const Home = () => {
 	const [selectedIndex, setSelectedIndex] = useState(0);
-	const Button1 = () => {
-		return (
-			<View style={{flex: 1, justifyContent: 'center'}}>
-				<Text style={styles.textButtonStyle}> Lãi thường </Text>
-			</View>
-		);
-	};
-	const Button2 = () => {
-		return (
-			<View style={{flex: 1, justifyContent: 'center'}}>
-				<Text style={styles.textButtonStyle}> Lãi kép </Text>
-			</View>
-		);
-	};
-
-	const buttons = [{element: Button1}, {element: Button2}];
+	const buttons = ['Lãi thường', 'Lãi kép', 'Vay trả góp'];
 
 	const displayView = () => {
 		switch (selectedIndex) {
@@ -30,6 +16,8 @@ const Home = () => {
 				return <NormalInterest/>
 			case 1:
 				return <CompoundInterest/>
+			case 2:
+				return <InstallmentLoan/>
 		}
 	};
 
@@ -41,38 +29,17 @@ const Home = () => {
 						<Header name={'Tính lãi tiết kiệm'}/>
 					</View>
 					<View style={styles.containerButton}>
-						{/*<MyButton*/}
-						{/*	onpress={setSelectedIndex}*/}
-						{/*	label={'Lãi thường'}*/}
-						{/*	labelStyle={{*/}
-						{/*		fontSize: 15*/}
-						{/*	}}*/}
-						{/*	containerStyle={{*/}
-						{/*		height: 20,*/}
-						{/*		justifyContent: 'center',*/}
-						{/*		marginHorizontal: 10*/}
-						{/*	}}*/}
-						{/*/>*/}
-						{/*<MyButton*/}
-						{/*	label={'Lãi kép'}*/}
-						{/*	labelStyle={{*/}
-						{/*		fontSize: 15*/}
-						{/*	}}*/}
-						{/*	containerStyle={{*/}
-						{/*		height: 20,*/}
-						{/*		justifyContent: 'center',*/}
-						{/*		marginHorizontal: 10*/}
-						{/*	}}*/}
-						{/*/>*/}
 						<ButtonGroup
 							buttons={buttons}
 							onPress={setSelectedIndex}
 							selectedIndex={selectedIndex}
+							// selectedIndexes={[0]}
+							vertical={true}
 							containerStyle={styles.buttonView}
 							// selectedButtonStyle={{backgroundColor: 'transparent'}}
-							innerBorderStyle={{width: 0, color: 'transparent'}}
-							selectedTextStyle={{color:'#FFFFFF'}}
-							textStyle={{color: '#F27224'}}
+							innerBorderStyle={{width: 1, color: 'gray'}}
+							selectedTextStyle={styles.selectedTextStyle}
+							textStyle={styles.textStyle}
 						/>
 					</View>
 
@@ -87,42 +54,50 @@ const Home = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: '#f8f8f8'
 	},
 	containerHeader: {
 		flex: 1,
-		marginTop: 10,
+		// marginTop: 10,
 		borderBottomWidth: 1,
 		borderBottomColor: 'gray',
 	},
 	containerContent: {
-		flex: 8,
+		marginTop: 20,
+		backgroundColor: '#f8f8f8',
+		flex: 7,
 		justifyContent: 'flex-start',
 		alignItems: 'center',
-		marginTop: 10,
-		// borderTopColor: 'gray',
-		// borderTopWidth: 1,
-		// borderBottomColor: 'gray',
-		// borderBottomWidth: 1,
 	},
 	containerButton: {
-		flex: 1,
+		flex: 1.5,
 		justifyContent: 'space-around',
-		// alignContent: 'center',
-		marginVertical: 10,
-		borderBottomColor: 'blue',
+		marginTop: 20,
+		borderBottomColor: 'gray',
 		borderBottomWidth: 1,
-		borderTopColor: 'blue',
+		borderTopColor: 'gray',
 		borderTopWidth: 1,
-		marginHorizontal: 10
+		// backgroundColor: 'blue'
 	},
 	buttonView: {
-		flexDirection: 'column',
-		// alignContent: 'center',
-		alignItems: 'flex-start',
-		height: 70,
+		height: 100,
+		marginVertical: 50,
+		borderWidth: 0,
 	},
-	textButtonStyle: {
-		width: '100%'
+	selectedButtonStyle: {
+
+	},
+	selectedTextStyle: {
+		fontSize: 18,
+		fontWeight: 'bold'
+	},
+	textStyle: {
+		fontSize: 15,
+		fontWeight: 'normal',
+		color: 'black',
+		justifyContent: 'center',
+		alignSelf: 'flex-start',
+		marginLeft: 10
 	}
 });
 export default Home;

@@ -11,10 +11,10 @@ const Separator = ({ children }) => {
 
 const styles = StyleSheet.create({
     separator: {
-        paddingVertical: 5,
         borderBottomWidth: 1,
         // borderBottomColor: '#F1F1F1',
-        borderBottomColor: 'gray'
+        borderBottomColor: 'gray',
+
     }
 });
 
