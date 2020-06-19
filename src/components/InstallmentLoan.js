@@ -24,9 +24,12 @@ const InstallmentLoan = () => {
 	}
 
 	useEffect(() => {
-		let Tien_Vay = string_to_number(money);
-		let result_Top = ((parseFloat(Tien_Vay) * ((1 + (parseFloat(interestRate)/100)/12) ** (parseFloat(time)))) * ((parseFloat(interestRate)/100)/12));
-		let result_Bottom = ((1 + (parseFloat(interestRate)/100)/12) ** (parseFloat(time))) - 1;
+		let Tien_Vay = parseFloat(string_to_number(money));
+		let Lai_Suat_Thang = (parseFloat(interestRate)/100)/12;
+		let Thoi_Gian_Vay = parseFloat(time);
+
+		let result_Top = Tien_Vay * ((1 + Lai_Suat_Thang) ** Thoi_Gian_Vay) * Lai_Suat_Thang
+		let result_Bottom = ((1 + Lai_Suat_Thang) ** Thoi_Gian_Vay) - 1;
 		let value = (parseFloat(result_Top) / parseFloat(result_Bottom));
 		setProfit(value);
 	}, [money, interestRate, time]);
@@ -72,7 +75,7 @@ const InstallmentLoan = () => {
 						style={styles.inputStyle}
 						placeholder={'Nhập lãi suất'}
 						returnKeyType={'done'}
-						autoFocus={true}
+						// autoFocus={true}
 						autoCapitalize="none"
 						autoCorrect={false}
 						keyboardType={'numeric'}
@@ -118,7 +121,7 @@ const InstallmentLoan = () => {
 						style={styles.inputStyle}
 						placeholder={'Nhập thời gian vay'}
 						returnKeyType={'done'}
-						autoFocus={true}
+						// autoFocus={true}
 						autoCapitalize="none"
 						autoCorrect={false}
 						keyboardType={'numeric'}
@@ -173,7 +176,7 @@ const styles = StyleSheet.create({
 		height: 40,
 		justifyContent: 'center',
 		borderBottomWidth: 1,
-		borderBottomColor: 'gray',
+		borderBottomColor: '#CCCCCE',
 		marginHorizontal: 20,
 		// backgroundColor: 'gray'
 	},
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
 	rightTextView: {
 		width: '20%',
 		justifyContent: 'center',
-		backgroundColor: 'red'
+		// backgroundColor: 'red'
 	}
 });
 

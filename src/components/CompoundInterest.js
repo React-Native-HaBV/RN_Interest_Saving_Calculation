@@ -73,7 +73,7 @@ const CompoundInterest = () => {
 						style={styles.inputStyle}
 						placeholder={'Nhập lãi suất'}
 						returnKeyType={'done'}
-						autoFocus={true}
+						// autoFocus={true}
 						autoCapitalize="none"
 						autoCorrect={false}
 						keyboardType={'numeric'}
@@ -96,7 +96,7 @@ const CompoundInterest = () => {
 						style={styles.inputStyle}
 						placeholder={'Nhập kỳ hạn'}
 						returnKeyType={'done'}
-						autoFocus={true}
+						// autoFocus={true}
 						autoCapitalize="none"
 						autoCorrect={false}
 						keyboardType={'numeric'}
@@ -119,7 +119,7 @@ const CompoundInterest = () => {
 						style={styles.inputStyle}
 						placeholder={'Nhập thời gian gửi'}
 						returnKeyType={'done'}
-						autoFocus={true}
+						// autoFocus={true}
 						autoCapitalize="none"
 						autoCorrect={false}
 						keyboardType={'numeric'}
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
 		height: 40,
 		justifyContent: 'center',
 		borderBottomWidth: 1,
-		borderBottomColor: 'gray',
+		borderBottomColor: '#CCCCCE',
 		marginHorizontal: 20,
 		// backgroundColor: 'gray'
 	},

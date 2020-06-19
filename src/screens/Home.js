@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
 	containerHeader: {
 		flex: 1,
 		// marginTop: 10,
-		borderBottomWidth: 1,
-		borderBottomColor: 'gray',
+		// borderBottomWidth: 1,
+		// borderBottomColor: 'gray',
 	},
 	containerContent: {
 		marginTop: 20,
@@ -72,17 +72,22 @@ const styles = StyleSheet.create({
 	containerButton: {
 		flex: 1.5,
 		justifyContent: 'space-around',
-		marginTop: 20,
-		borderBottomColor: 'gray',
-		borderBottomWidth: 1,
-		borderTopColor: 'gray',
-		borderTopWidth: 1,
+		// marginTop: 20,
+		// borderBottomColor: 'gray',
+		// borderBottomWidth: 1,
+		// borderTopColor: 'gray',
+		// borderTopWidth: 1,
 		// backgroundColor: 'blue'
 	},
 	buttonView: {
 		height: 100,
-		marginVertical: 50,
+		// marginVertical: 50,
 		borderWidth: 0,
+		marginHorizontal: 0,
+		borderBottomWidth: 1,
+		borderTopWidth: 1,
+		borderBottomColor: 'gray',
+		borderTopColor: 'gray'
 	},
 	selectedButtonStyle: {
 
